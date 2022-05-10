@@ -1,0 +1,129 @@
+# Gobi demo
+# 2022 Automixer
+version: "3.9"
+
+networks:
+  gobi-net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.22.99.0/24
+          gateway: 172.22.99.1
+
+volumes:
+  grafana-data:
+  prometheus-data:
+  gobi-fifo:
+  gobi-mmdb:
+
+services:
+  # ============= Frontend  =============
+  grafana:
+    image: grafana/grafana-oss:8.5.2
+    container_name: ctr-grafana
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: grafana-data
+        target: /var/lib/grafana
+      - type: bind
+        source: ./grafana
+        target: /provisioning
+        read_only: true
+    environment:
+      - GF_PATHS_PROVISIONING=/provisioning
+    ports:
+      - target: 3000
+        published: 80
+        protocol: tcp
+        mode: host
+    networks:
+      - gobi-net
+
+  file-browser:
+    image: filebrowser/filebrowser:v2.20.1
+    container_name: ctr-fb
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: gobi-mmdb
+        target: /srv
+    environment:
+      - FB_DATABASE=/srv/fb
+      - FB_ROOT=/srv
+    ports:
+      - target: 80
+        published: 8000
+        protocol: tcp
+        mode: host
+    networks:
+      - gobi-net
+
+  # ============= Prometheus =============
+  prometheus:
+    image: prom/prometheus:v2.35.0
+    container_name: ctr-prom
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: prometheus-data
+        target: /prometheus
+      - type: bind
+        source: ./prometheus
+        target: /config
+        read_only: true
+    command:
+      - "--config.file=/config/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=15d"
+      - "--storage.tsdb.retention.size=4GB"
+    expose:
+      - 9090
+    networks:
+      - gobi-net
+
+  # ============= Backend  =============
+  gobi:
+    image: automixer/gobi:v1.0.0
+    container_name: ctr-gobi
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./gobi
+        target: /config
+        read_only: true
+      - type: volume
+        source: gobi-mmdb
+        target: /data
+        read_only: true
+      - type: volume
+        source: gobi-fifo
+        target: /var/tmp
+        read_only: false
+    command:
+      - "-f=/config/gobi.yml"
+    expose:
+      - 9310
+    networks:
+      - gobi-net
+
+  goflow2:
+    image: netsampler/goflow2:v1.1.0
+    container_name: ctr-goflow2
+    restart: unless-stopped
+    depends_on:
+      - gobi
+    volumes:
+      - type: volume
+        source: gobi-fifo
+        target: /var/tmp
+        read_only: false
+    command:
+      - "-listen=netflow://:2055"
+      - "-metrics.addr=:9311"
+      - "-transport.file=/var/tmp/fifo"
+      - "-transport.file.sep="
+      - "-format=pb"
+      - "-format.protobuf.fixedlen=true"
+    network_mode: host

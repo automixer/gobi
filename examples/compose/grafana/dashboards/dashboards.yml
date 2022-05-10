@@ -1,0 +1,8 @@
+- name: 'gobi-default'
+  org_id: 1
+  folder: ''
+  type: file
+  disableDeletion: true
+  allowUiUpdates: true
+  options:
+    path: /provisioning

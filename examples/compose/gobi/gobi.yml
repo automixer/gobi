@@ -1,0 +1,18 @@
+global:
+  metricsaddr: :9310
+  metricspath: /metrics
+  createfifo: true
+
+producer:
+  input: /var/tmp/fifo
+  dbasn: /data/GeoLite2-ASN.mmdb
+  dbcountry: /data/GeoLite2-Country.mmdb
+  normalize: true
+
+promexporters:
+  - metricsname: asn
+    minbps: 500_000
+    minpps: 0
+    flowlife: 5m
+    maxscrapeint: 2m
+    labelset: ["SamplerAddress", "SrcAS", "DstAS", "Etype", "Proto", "DstPort", "Dstcountry", "NextHop"]
