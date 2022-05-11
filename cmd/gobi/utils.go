@@ -20,6 +20,12 @@ type appConfig struct {
 	Promexporters []promexp.Config
 }
 
+type Config struct {
+	MetricsAddr string
+	MetricsPath string
+	CreateFifo  bool
+}
+
 func newAppConfig(fName string) appConfig {
 	cfg := appConfig{}
 
@@ -49,7 +55,7 @@ func loadCfgFromFile(fName string) appConfig {
 		SrOverride: -1,
 	}
 
-	// Reading config
+	// Read config from file
 	f, err := ioutil.ReadFile(fName)
 	if err != nil {
 		log.Warning("cannot open config file. using default config values...")
@@ -65,6 +71,7 @@ func loadCfgFromFile(fName string) appConfig {
 }
 
 func parseGlobalCfg(yCfg appConfig) Config {
+	// Create fifo if required
 	if yCfg.Global.CreateFifo && yCfg.Producer.Input != "stdin" {
 		_ = syscall.Mkfifo(yCfg.Producer.Input, 0o666)
 		_ = os.Chmod(yCfg.Producer.Input, 0o666)

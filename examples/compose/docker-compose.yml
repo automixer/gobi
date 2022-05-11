@@ -85,7 +85,7 @@ services:
 
   # ============= Backend  =============
   gobi:
-    image: automixer/gobi:v1.0.0
+    image: automixer/gobi:v1.0.0-rc1
     container_name: ctr-gobi
     restart: unless-stopped
     volumes:

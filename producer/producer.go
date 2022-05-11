@@ -51,7 +51,6 @@ type GobiGf2 struct {
 
 type Consumer interface {
 	// Consume is called by the producer when sending flow data to exporters.
-	// The implementation of these methods should be kept as short as possible.
 	Consume(flow Flow)
 }
 

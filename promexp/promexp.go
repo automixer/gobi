@@ -3,10 +3,10 @@
 // At that time promexp executes these tasks:
 //  - Checks out the accumulated flows from the temporary buffer.
 //  - Aggregates those flows over a user defined label set.
-//  - Checks if aggregates are compliant with a minimum user defined rate. If not, they are
+//  - Checks if aggregates are compliant with a minimum user defined data rate. If not, they are
 //    added to the untracked counters and removed from table.
 //  - Checks the remaining flows in table for age. The expired ones are evicted.
-//  - Exports the remaining flows to the Prometheus scraper.
+//  - Exports the remaining flows to the Prometheus client.
 package promexp
 
 import (

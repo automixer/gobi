@@ -1,4 +1,4 @@
-// Package db implements a set of helper functions for enrich flows data
+// Package db implements a set of flows enriching functions
 package db
 
 import (

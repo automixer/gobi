@@ -12,13 +12,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const appVersion = "Gobi -- GoFlow2 Prometheus Exporter v.1.0.0"
-
-type Config struct {
-	MetricsAddr string
-	MetricsPath string
-	CreateFifo  bool
-}
+const appVersion = "Gobi -- Flows Monitoring Tool v.1.0.0-rc1"
 
 func main() {
 	var (
@@ -53,7 +47,6 @@ func main() {
 	gProducer, cleanUp := producer.New(appConfig.Producer)
 	defer cleanUp()
 
-	promExporters := make([]*promexp.GobiProm, 0, len(appConfig.Promexporters))
 	var xNum int
 	for _, v := range appConfig.Promexporters {
 		pe := promexp.New(v)
@@ -62,7 +55,6 @@ func main() {
 			log.Error(err)
 			continue
 		}
-		promExporters = append(promExporters, pe)
 		xNum++
 	}
 	log.Info(fmt.Sprintf("%d prometheus exporter(s) registered...", xNum))
