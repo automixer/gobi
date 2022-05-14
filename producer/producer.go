@@ -1,6 +1,6 @@
 // Package producer listen the protoBuf data stream coming from GoFlow2 and convert it in a Flow stream.
 //  It can listen from stdin or a named pipe. It outputs a stream of Flow objects via interface.
-//  It enriches flow data with Country, ASN, L3 proto and L4 service extended infos.
+//  It enriches flow data with Country, ASN, L3 proto and L4 proto and service extended infos.
 package producer
 
 import (
@@ -50,7 +50,6 @@ type GobiGf2 struct {
 }
 
 type Consumer interface {
-	// Consume is called by the producer when sending flow data to exporters.
 	Consume(flow Flow)
 }
 
@@ -87,7 +86,7 @@ func New(config Config) (*GobiGf2, func()) {
 		close(gobi.doneCh)
 		close(gobi.consCh)
 		close(gobi.flowCh)
-		gobi.CloseDb()
+		gobi.CloseDbs()
 	}
 }
 

@@ -10,7 +10,7 @@ Gobi aims to be a fast, lightweight and easy to use tool for network flows analy
 
 ## Get Started
 
-The [examples](examples) folder contains two ready to deploy Gobi setups, one for docker-compose and the other for kubernetes environment. Pick one and send it to a NetFlow/IPFIX stream to get a sample of what Gobi can do. [Here](examples/README.md) you can find detailed installation instructions.
+The [examples](examples) folder contains two ready to deploy Gobi setups, one for docker-compose and the other for kubernetes environment. Pick one and send to it a NetFlow/IPFIX stream to get a sample of what Gobi can do. [Here](examples/README.md) you can find detailed installation instructions.
 
 ![Gobi Example DashBoard](png/screenshot.png)
 
@@ -20,7 +20,7 @@ Gobi is modular. The `producer` receives input flow data, converts it in go stru
 
 ### The GoFlow2 producer
 
-It takes its input from stdin or a named pipe. The expected format is GPB, as defined by GoFlow2 proto [file](https://github.com/netsampler/goflow2/blob/v1.0.0/pb/flow.proto) *(not all fields are currently exported)*. Each flow is then enriched with data coming from these popular DBs:
+It takes its input from stdin or a named pipe. The expected format is GPB, as defined by GoFlow2 proto [file](https://github.com/netsampler/goflow2/blob/v1.1.0/pb/flow.proto) *(not all fields are currently exported)*. Each flow is then enriched with data coming from these popular DBs:
 
 * MaxMind [GeoLite2 Country](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data?lang=en).
 * MaxMind [GeoLite2 ASN](https://dev.maxmind.com/geoip/docs/databases/asn?lang=en).

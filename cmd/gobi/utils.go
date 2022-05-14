@@ -40,7 +40,7 @@ func newAppConfig(fName string) appConfig {
 func loadCfgFromFile(fName string) appConfig {
 	yCfg := appConfig{}
 
-	// Setting app and producer defaults
+	// Setting global and producer defaults
 	yCfg.Global = Config{
 		MetricsAddr: ":9310",
 		MetricsPath: "/metrics",
@@ -58,13 +58,13 @@ func loadCfgFromFile(fName string) appConfig {
 	// Read config from file
 	f, err := ioutil.ReadFile(fName)
 	if err != nil {
-		log.Warning("cannot open config file. using default config values...")
+		log.Warning("cannot open config file. using default values...")
 	}
 
 	err = yaml.Unmarshal(f, &yCfg)
 	if err != nil {
 		log.Warning(err)
-		log.Warning("using default config values...")
+		log.Warning("using default values...")
 	}
 
 	return yCfg
@@ -86,7 +86,7 @@ func parseExpCfg(yCfg appConfig) []promexp.Config {
 	for i, v := range yCfg.Promexporters {
 		// Setting PromExporters defaults
 		cfg = append(cfg, promexp.Config{
-			MetricsName:  fmt.Sprintf("gobi%d", i),
+			MetricsName:  fmt.Sprintf("pexp%d", i),
 			MinBps:       v.MinBps,
 			MinPps:       v.MinPps,
 			FlowLife:     "5m",

@@ -1,4 +1,4 @@
-// Package db implements a set of flows enriching functions
+// Package db implements a set of flows enrichment functions
 package db
 
 import (
@@ -11,7 +11,7 @@ import (
 )
 
 const msgNotAv = "not-av"
-const msgNotStd = "not-std"
+const msgNotStd = "non-std"
 
 type GobiDb struct {
 	maxMindASN     *geoip2.Reader
@@ -52,7 +52,7 @@ func (g *GobiDb) OpenDbs(asn, country string) {
 	}
 }
 
-func (g *GobiDb) CloseDb() {
+func (g *GobiDb) CloseDbs() {
 	if g.maxMindASN != nil {
 		_ = g.maxMindASN.Close()
 	}
