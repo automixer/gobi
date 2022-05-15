@@ -1,5 +1,8 @@
 # Gobi
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/automixer/gobi.svg)](https://pkg.go.dev/github.com/automixer/gobi)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
 This application allows you to visualize the highly complex flow Information data exported by network devices, in an easy and understandable graphical way. 
 
 It takes a decoded flow data stream from [GoFlow2](https://github.com/netsampler/goflow2) as input and exports it to [Prometheus Server](https://github.com/prometheus/prometheus) to be stored. Then, data can be queried and graphically represented using tools such as [Grafana.](https://github.com/grafana/grafana)
