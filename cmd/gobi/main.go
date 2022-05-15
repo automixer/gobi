@@ -12,7 +12,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const appVersion = "Gobi -- Flows Monitoring Tool v.1.0.0-rc1"
+const appVersion = "Gobi -- Flows Monitoring Tool v.1.0.0"
 
 func main() {
 	var (

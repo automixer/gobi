@@ -358,7 +358,7 @@ spec:
           - name: fifo
             mountPath: /var/tmp
 
-      - image: automixer/gobi:v1.0.0-rc1
+      - image: automixer/gobi:v1.0.0
         imagePullPolicy: IfNotPresent
         name: ctr-gobi
         command:

@@ -32,7 +32,7 @@ Finally, a copy of this enriched flow is sent to each registered exporter for fu
 
 Flows coming from `producer` are initially stored in a memory buffer, waiting for a Prometheus server scrape event. When scraping happens, `promexporter` checks them out and process flows it as follows:
 
-* Aggregates flows over a user defined field (labels) set.
+* Aggregates over a user defined field (labels) set.
 * Checks if those aggregates are compliant with a minimum user defined data rate over the scrape interval. If not, they are removed from the table and accumulated in separate "untracked" counters.
 * Aggregates are then checked for aging. The expired ones are evicted from the table.
 * Finally, the remaining aggregates and the untracked counters are sent to the Prometheus server.

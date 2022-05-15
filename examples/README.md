@@ -30,7 +30,7 @@ Since the provided dasboard is "AS centric", there are some requirements to meet
 
 - Destination Port
 
-- Sampling rate (if statistical sampling is enabled)
+- Sampling ratio (if statistical sampling is enabled)
 
 The default ipv4/ipv6 template from Juniper Mx/Srx devices works out of the box. For Cisco devices with FNF exporter, each field must be manually configured.
 
@@ -46,7 +46,7 @@ A minimum flow data rate of 500 kbit/s is configured (See the **Prometheus Expor
 
 ## Running Gobi
 
-To start the docker compose version, clone this project from GitHub, change to the `gobi/examples/compose` folder and launch `docker-compose up` from the command prompt. To start the kubernetes version, apply the provided `gobi.yaml` manifest to the k8s cluster with the `kubectl` utility.
+To start the docker compose version, clone this project from GitHub, change to the `gobi/examples/compose` folder and launch `docker-compose up -d` from the command prompt. To start the kubernetes version, apply the provided `gobi.yaml` manifest to the k8s cluster with the `kubectl` utility.
 
 Once started, it is **highly recomended** to upload MaxMind databases to the app. Point your browser to `<GOBI_HOST_IP>:8000`, login to the FileBrowser app with admin/admin credential and upload the files `GeoLite2-ASN.mmdb` and `GeoLite2-Country.mmdb` to the home folder. Restart the docker-compose or the gobi-app pod to activate changes.
 
