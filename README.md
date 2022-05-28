@@ -2,6 +2,7 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/automixer/gobi.svg)](https://pkg.go.dev/github.com/automixer/gobi)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Go Report Card](https://goreportcard.com/badge/github.com/automixer/gobi)](https://goreportcard.com/report/github.com/automixer/gobi)
 
 This application allows you to visualize the highly complex flow Information data exported by network devices, in an easy and understandable graphical way. 
 
@@ -16,6 +17,30 @@ Gobi aims to be a fast, lightweight and easy to use tool for network flows analy
 The [examples](examples) folder contains two ready to deploy Gobi setups, one for docker-compose and the other for kubernetes environment. Pick one and send to it a NetFlow/IPFIX stream to get a sample of what Gobi can do. [Here](examples/README.md) you can find detailed installation instructions.
 
 ![Gobi Example DashBoard](png/screenshot.png)
+
+## Setup a basic flow pipeline
+
+To set up a basic flow pipeline, download Gobi and GoFlow2 to your local machine and create a `gobi.yml` config file like this template:
+
+> ```
+> global:
+>   metricsaddr: :9310
+> 
+> producer:
+>   input: stdin
+> 
+> promexporters:
+>   - metricsname: example
+>     labelset: ["SamplerAddress"]
+> ```
+
+Then start the pipeline with the following command:
+
+```
+$ ./goflow2 -transport.file.sep= -format=pb -format.protobuf.fixedlen=true | ./gobi -f gobi.yml
+```
+
+ The pipeline is now ready to be scraped by Prometheus server at the IP address of your local machine. A full config keys list supported by `gobi.yml` is available [here](./doc/CONFIG-GUIDE.md). The provided [examples](./examples/README.md) are a good starting point for Gobi deployments.
 
 ## Application design
 
