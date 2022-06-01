@@ -16,6 +16,9 @@ const msgNotStd = "non-std"
 type GobiDb struct {
 	maxMindASN     *geoip2.Reader
 	maxMindCountry *geoip2.Reader
+	NoPortName     bool
+	NoProtoName    bool
+	NoEtypeName    bool
 }
 
 func (g *GobiDb) OpenDbs(asn, country string) {
@@ -101,6 +104,10 @@ func (g *GobiDb) FindDirection(dir uint32) string {
 }
 
 func (g *GobiDb) FindProto(pNumber uint32) string {
+	if g.NoProtoName {
+		return fmt.Sprint(pNumber)
+	}
+
 	out := msgNotStd
 	pPtr := netdb.ProtocolByNumber(uint8(pNumber))
 	if pPtr != nil {
@@ -110,6 +117,10 @@ func (g *GobiDb) FindProto(pNumber uint32) string {
 }
 
 func (g *GobiDb) FindSvc(pNumber, port uint32) string {
+	if g.NoPortName {
+		return fmt.Sprint(port)
+	}
+
 	out := msgNotStd
 	switch pNumber {
 	case 6: // tcp
@@ -136,6 +147,10 @@ func (g *GobiDb) FindNetwork(ipAddr []byte, mask uint32) string {
 }
 
 func (g *GobiDb) FindEtype(eType uint32) string {
+	if g.NoEtypeName {
+		return fmt.Sprintf("0x%x", eType)
+	}
+
 	out := msgNotStd
 	switch eType {
 	case 0x0800:

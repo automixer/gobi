@@ -30,11 +30,14 @@ type Flow struct {
 }
 
 type Config struct {
-	Input      string
-	DbAsn      string
-	DbCountry  string
-	Normalize  bool
-	SrOverride int
+	Input       string
+	DbAsn       string
+	DbCountry   string
+	Normalize   bool
+	SrOverride  int
+	NoPortName  bool
+	NoProtoName bool
+	NoEtypeName bool
 }
 
 type GobiGf2 struct {
@@ -56,6 +59,9 @@ type Consumer interface {
 func New(config Config) (*GobiGf2, func()) {
 	gobi := &GobiGf2{}
 
+	gobi.NoPortName = config.NoPortName
+	gobi.NoProtoName = config.NoProtoName
+	gobi.NoEtypeName = config.NoEtypeName
 	gobi.normalize = config.Normalize
 	gobi.srOverride = config.SrOverride
 	gobi.consumers = make([]Consumer, 0, maxConsumers)

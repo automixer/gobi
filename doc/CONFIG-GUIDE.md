@@ -14,8 +14,11 @@ producer:
   input: stdin # Producer input device [stdin | <path to fifo>]
   dbasn: <path to ASN db>
   dbcountry: <path to Country db>
-  normalize: true # If true, flows counters are adjusted with the received sample ratio.
+  normalize: true # If true, flows counters are adjusted with the received sample ratio.
   sroverride: -1 # Overrides the received NF sample ratio. Negative value disable the feature.
+  noportname: false # If true, port numbers are preserved in decimal format.
+  noprotoname: false # If true, protocol numbers are preserved in decimal format.
+  noetypename: false # If true, EtherType numbers are preserved in hex format.
 
 # Section PromExporters
 promexporters:
@@ -25,11 +28,11 @@ promexporters:
     flowlife: 5m # Max flow life. Hours, minutes, seconds suffix accepted 
     maxscrapeint: 2m # Max Prometheus scrape interval. Hours, minutes, seconds suffix accepted. 
 
-    # List of labels over wich aggregate flows (default: SamplerAddress)
-    labelset: ["Type", "FlowDirection", "SamplerAddress", "SrcAddr", 
-               "DstAddr", "Etype", "Proto", "SrcPort", "DstPort", 
-               "InIf", "OutIf", "SrcAS", "DstAS", "NextHop", "NextHopAS", 
-               "SrcNet", "DstNet", "SrcCountry", "DstCountry"]
+  # Supported flows aggregation labels (default: SamplerAddress)
+  labelset: ["Type", "FlowDirection", "SamplerAddress", "SrcAddr", 
+             "DstAddr", "Etype", "Proto", "SrcPort", "DstPort", 
+             "InIf", "OutIf", "SrcAS", "DstAS", "NextHop", "NextHopAS", 
+             "SrcNet", "DstNet", "SrcCountry", "DstCountry"]
 
   # up to 4 promexporter instances supported
   - metricsname: pexpX # Prom metric name will be: "gobi_pexp2_bytes"
