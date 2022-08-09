@@ -12,7 +12,11 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const appVersion = "Gobi -- Flows Monitoring Tool v.1.1.0"
+var (
+	appName    = ""
+	appVersion = ""
+	buildDate  = ""
+)
 
 func main() {
 	var (
@@ -24,7 +28,9 @@ func main() {
 	flag.Parse()
 
 	if *ver {
-		fmt.Println(appVersion)
+		fmt.Println("Gobi -- Flows Monitoring Tool --")
+		fmt.Println("Release:", appVersion)
+		fmt.Println("Build date:", buildDate)
 		os.Exit(0)
 	}
 
@@ -41,7 +47,7 @@ func main() {
 	default:
 		log.Fatal("Log format not available")
 	}
-	log.Info(fmt.Sprintf("Starting %s", appVersion))
+	log.Info(fmt.Sprintf("Starting %s %s", appName, appVersion))
 
 	appConfig := newAppConfig(*cfgFile)
 	gProducer, cleanUp := producer.New(appConfig.Producer)

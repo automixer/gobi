@@ -1,12 +1,12 @@
 FROM golang:1.18-bullseye as builder
 
-WORKDIR /build
-COPY . /build
+WORKDIR /app
+COPY . /app
 
-RUN go build -o gobi ./cmd/gobi
+RUN make clean release
 
 FROM ubuntu:22.04
 
-COPY --from=builder /build/gobi /
+COPY --from=builder /app/build/* /usr/local/bin/
 
-ENTRYPOINT ["./gobi"]
+ENTRYPOINT ["/usr/local/bin/gobi"]
