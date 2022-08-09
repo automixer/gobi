@@ -1,6 +1,7 @@
 // Package producer listen the protoBuf data stream coming from GoFlow2 and convert it in a Flow stream.
-//  It can listen from stdin or a named pipe. It outputs a stream of Flow objects via interface.
-//  It enriches flow data with Country, ASN, L3 proto and L4 proto and service extended infos.
+//
+//	It can listen from stdin or a named pipe. It outputs a stream of Flow objects via interface.
+//	It enriches flow data with Country, ASN, L3 proto and L4 proto and service extended infos.
 package producer
 
 import (
