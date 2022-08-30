@@ -228,6 +228,18 @@ spec:
       labels:
         app: gobi-db
     spec:
+      initContainers:
+        - name: ctr-chown
+          image: alpine:3.16
+          imagePullPolicy: IfNotPresent
+          command:
+            - chown
+            - '-R'
+            - '65534:65534'
+            - /data
+          volumeMounts:
+            - name: data
+              mountPath: /data
       containers:
       - name: ctr-prom
         image: prom/prometheus:v2.35.0
