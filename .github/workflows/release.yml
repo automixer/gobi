@@ -9,6 +9,8 @@ jobs:
   build:
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Set up Go 1.x
         uses: actions/setup-go@v2
