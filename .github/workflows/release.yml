@@ -35,6 +35,8 @@ jobs:
   build-docker:
     name: Release-Docker
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     needs: build
     steps:
 
