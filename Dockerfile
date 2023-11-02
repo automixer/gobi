@@ -7,6 +7,6 @@ RUN make clean release
 
 FROM ubuntu:22.04
 
-COPY --from=builder /app/build/* /usr/local/bin/
+COPY --from=builder /app/build/* /
 
-ENTRYPOINT ["/usr/local/bin/gobi"]
+ENTRYPOINT ["./gobi"]

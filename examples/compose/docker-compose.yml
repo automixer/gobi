@@ -1,5 +1,5 @@
 # Gobi demo
-# 2022 Automixer
+# 2023 Automixer
 version: "3.9"
 
 networks:
@@ -20,7 +20,7 @@ volumes:
 services:
   # ============= Frontend  =============
   grafana:
-    image: grafana/grafana-oss:8.5.2
+    image: grafana/grafana-oss:10.2.0-ubuntu
     container_name: ctr-grafana
     restart: unless-stopped
     volumes:
@@ -62,7 +62,7 @@ services:
 
   # ============= Prometheus =============
   prometheus:
-    image: prom/prometheus:v2.35.0
+    image: prom/prometheus:v2.47.2
     container_name: ctr-prom
     restart: unless-stopped
     volumes:
@@ -85,7 +85,7 @@ services:
 
   # ============= Backend  =============
   gobi:
-    image: automixer/gobi:v1.1.0
+    image: automixer/gobi:v1.1.2
     container_name: ctr-gobi
     restart: unless-stopped
     volumes:

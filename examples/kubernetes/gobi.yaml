@@ -1,5 +1,5 @@
 # Gobi demo
-# 2022 Automixer
+# 2023 Automixer
 ---
 # Namespace
 apiVersion: v1
@@ -121,7 +121,7 @@ spec:
     spec:
       containers:
       - name: ctr-grafana
-        image: grafana/grafana-oss:8.5.2
+        image: grafana/grafana-oss:10.2.0-ubuntu
         imagePullPolicy: IfNotPresent
         env:
         - name: GF_PATHS_DATA
@@ -242,7 +242,7 @@ spec:
               mountPath: /data
       containers:
       - name: ctr-prom
-        image: prom/prometheus:v2.35.0
+        image: prom/prometheus:v2.47.2
         imagePullPolicy: IfNotPresent
         command:
           - /bin/prometheus
@@ -370,8 +370,8 @@ spec:
           - name: fifo
             mountPath: /var/tmp
 
-      - image: automixer/gobi:v1.1.0
-        imagePullPolicy: IfNotPresent
+      - image: automixer/gobi:v1.1.2
+        imagePullPolicy: Always
         name: ctr-gobi
         command:
           - /gobi
