@@ -1,13 +1,13 @@
 module github.com/automixer/gobi
 
-go 1.18
+go 1.25.4
 
 require (
 	github.com/golang/protobuf v1.5.2
 	github.com/netsampler/goflow2 v1.1.0
 	github.com/oschwald/geoip2-golang v1.7.0
 	github.com/prometheus/client_golang v1.12.1
-	github.com/sirupsen/logrus v1.8.1
+	github.com/sirupsen/logrus v1.9.3
 	github.com/thediveo/netdb v0.9.1
 	gopkg.in/yaml.v2 v2.4.0
 )
@@ -20,7 +20,7 @@ require (
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.32.1 // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
-	golang.org/x/net v0.33.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
+	golang.org/x/sys v0.31.0 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
 )

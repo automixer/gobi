@@ -1,11 +1,11 @@
-FROM golang:1.18-bullseye as builder
+FROM golang:1.25.4 AS builder
 
 WORKDIR /app
 COPY . /app
 
 RUN make clean release
 
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 COPY --from=builder /app/build/* /
 
